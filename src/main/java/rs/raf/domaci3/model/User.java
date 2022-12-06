@@ -4,10 +4,7 @@ package rs.raf.domaci3.model;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -16,7 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NonNull
-    //unique
+    @Column(unique = true)
     private String email;
     @NonNull
     private String password;
