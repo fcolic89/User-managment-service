@@ -18,19 +18,18 @@ import rs.raf.domaci3.utils.JwtUtils;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final AnotherUserDetailService userService;
     private final JwtUtils jwtUtil;
     private final UserRepository userRepository;
-    public AuthController(AuthenticationManager authenticationManager, AnotherUserDetailService userService,
+    public AuthController(AuthenticationManager authenticationManager,
                           JwtUtils jwtUtil, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
-        this.userService = userService;
         this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+        System.out.println("email iz kontolera: " + loginRequest.getEmail());
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         } catch (Exception   e){

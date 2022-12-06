@@ -31,16 +31,15 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
         String jwt = null;
-        String username = null;
-        System.out.println("+cao iz jwt filtera");
+        String email = null;
         if(authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt);
+            email = jwtUtil.extractUsername(jwt);
         }
 
-        if (username != null) {
-
-            UserDetails userDetails = this.userService.loadUserByUsername(username);
+        if (email != null) {
+            System.out.println("email: " + email);
+            UserDetails userDetails = this.userService.loadUserByUsername(email);
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
 

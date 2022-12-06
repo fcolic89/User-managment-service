@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import rs.raf.domaci3.filter.JwtFilter;
+import rs.raf.domaci3.filter.PrivilegeFilter;
 import rs.raf.domaci3.service.AnotherUserDetailService;
 
 @EnableWebSecurity
@@ -19,11 +20,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AnotherUserDetailService userService;
     private final JwtFilter jwtFilter;
+    private final PrivilegeFilter privilegeFilter;
 
     @Autowired
-    public SpringSecurityConfig(AnotherUserDetailService userService, JwtFilter jwtFilter) {
+    public SpringSecurityConfig(AnotherUserDetailService userService, JwtFilter jwtFilter, PrivilegeFilter privilegeFilter) {
         this.userService = userService;
         this.jwtFilter = jwtFilter;
+        this.privilegeFilter = privilegeFilter;
     }
 
     @Override
@@ -46,7 +49,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         httpSecurity.addFilterBefore(this.jwtFilter, UsernamePasswordAuthenticationFilter.class);
-//        httpSecurity.addFilter(this.jwtFilter);
+        httpSecurity.addFilterAfter(this.privilegeFilter, UsernamePasswordAuthenticationFilter.class);
+
     }
 
     @Override
