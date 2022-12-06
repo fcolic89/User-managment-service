@@ -9,6 +9,7 @@ import rs.raf.domaci3.model.User;
 import rs.raf.domaci3.repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class AnotherUserDetailService implements UserDetailsService {
@@ -21,12 +22,12 @@ public class AnotherUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+        Optional<User> u = userRepository.findByEmail(email);
 
-        if(user == null) {
+        if(!u.isPresent()) {
             throw new UsernameNotFoundException("Email: "+email+" not found");
         }
-
+        User user = u.get();
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
     }
 }

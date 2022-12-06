@@ -29,17 +29,31 @@ public class UserService implements IService{
 
     @Override
     public User update(User user) {
-        return userRepository.save(user);
+        Optional<User> u = userRepository.findByEmail(user.getEmail());
+        Optional<User> u1 = userRepository.findById(user.getId());
+        if((u.isPresent() && u1.isPresent() && u.get().getId().equals(u1.get().getId()))
+            || (!u.isPresent() && u1.isPresent()))
+            return userRepository.save(user);
+        else return null;
     }
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+        Optional<User> u = userRepository.findByEmail(user.getEmail());
+        if(!u.isPresent())
+            return userRepository.save(user);
+        else return null;
     }
 
     @Override
     public User findById(Long id) {
         Optional<User> user =  userRepository.findById(id);
+        return user.orElse(null);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
         return user.orElse(null);
     }
 }

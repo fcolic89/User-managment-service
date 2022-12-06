@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class PrivilegeFilter extends OncePerRequestFilter {
@@ -34,8 +35,9 @@ public class PrivilegeFilter extends OncePerRequestFilter {
         }
         boolean forbidden = false;
         if (email != null) {
-            User user = userRepository.findByEmail(email);
-            if(user != null){
+            Optional<User> u = userRepository.findByEmail(email);
+            if(u.isPresent()){
+                User user = u.get();
                 String uri = request.getRequestURI();
                 String method = request.getMethod();
                 if(method.equals("GET") && user.getCanRead()

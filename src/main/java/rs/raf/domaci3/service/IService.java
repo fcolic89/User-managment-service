@@ -13,5 +13,7 @@ public interface IService {
 
     User findById(Long id);
 
+    User findByEmail(String email);
+
 
 }

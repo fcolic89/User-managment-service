@@ -2,6 +2,7 @@ package rs.raf.domaci3.bootstrap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import rs.raf.domaci3.model.User;
 import rs.raf.domaci3.repository.UserRepository;
@@ -11,10 +12,12 @@ import java.util.Random;
 @Component
 public class BootstrapData implements CommandLineRunner {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public BootstrapData(UserRepository userRepository) {
+    public BootstrapData(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class BootstrapData implements CommandLineRunner {
             user = new User();
             user.setEmail("user"+i+"@mail.com");
             user.setName("user"+i);
-            user.setPassword("user"+i);
+            user.setPassword(passwordEncoder.encode("user"+i));
             user.setLastname("user"+i+"ic");
             user.setCanRead(rand.nextInt(100)%2 == 0);
             user.setCanCreate(rand.nextInt(200)%2 == 0);

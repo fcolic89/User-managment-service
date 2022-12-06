@@ -35,8 +35,12 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User createUser(@RequestBody User user){
-        return userService.save(user);
+    public ResponseEntity<?> createUser(@RequestBody User user){
+       User user1 = userService.save(user);
+       if(user1 == null)
+           return ResponseEntity.status(400).build();
+       else
+           return ResponseEntity.ok(user1);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -48,7 +52,10 @@ public class UserController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> updateUser(@RequestBody User user){
         User user1 = userService.update(user);
-        return ResponseEntity.ok(user1);
+        if(user1 == null)
+            return ResponseEntity.status(400).build();
+        else
+            return ResponseEntity.ok(user1);
     }
 
 }
