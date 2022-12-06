@@ -1,5 +1,6 @@
 package rs.raf.domaci3.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import rs.raf.domaci3.model.User;
 import rs.raf.domaci3.repository.UserRepository;
@@ -12,9 +13,11 @@ import java.util.Optional;
 public class UserService implements IService{
 
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -32,16 +35,20 @@ public class UserService implements IService{
         Optional<User> u = userRepository.findByEmail(user.getEmail());
         Optional<User> u1 = userRepository.findById(user.getId());
         if((u.isPresent() && u1.isPresent() && u.get().getId().equals(u1.get().getId()))
-            || (!u.isPresent() && u1.isPresent()))
+            || (!u.isPresent() && u1.isPresent())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
+        }
         else return null;
     }
 
     @Override
     public User save(User user) {
         Optional<User> u = userRepository.findByEmail(user.getEmail());
-        if(!u.isPresent())
+        if(!u.isPresent()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
+        }
         else return null;
     }
 
