@@ -39,7 +39,7 @@ public class AuthController {
             return ResponseEntity.status(401).build();
         }
         System.out.println("email iz kontolera: " + loginRequest.getEmail());
-        System.out.println(userService.findByEmail(loginRequest.getEmail()).toString());
+//        System.out.println(userService.findByEmail(loginRequest.getEmail()).toString());
         return ResponseEntity.ok(new LoginResponse(
                 jwtUtil.generateToken(userService.findByEmail(loginRequest.getEmail()))
                 ));
