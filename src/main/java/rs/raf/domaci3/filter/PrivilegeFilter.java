@@ -32,11 +32,15 @@ public class PrivilegeFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String jwt = null;
         String email = null;
-        if(authHeader != null && authHeader.startsWith("Bearer ")) {
-            jwt = authHeader.substring(7);
-            email = jwtUtil.extractUsername(jwt);
+        if(authHeader != null) {
+            if(authHeader.startsWith("Bearer ")) {
+                jwt = authHeader.substring(7);
+                email = jwtUtil.extractUsername(jwt);
+            }
         }
-        boolean forbidden = false;
+        else
+            filterChain.doFilter(request, response);
+
         if (email != null) {
             Optional<User> u = userRepository.findByEmail(email);
             if(u.isPresent()){
