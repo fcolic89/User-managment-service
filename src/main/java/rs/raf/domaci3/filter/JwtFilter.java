@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
         System.out.println("jwt filter!!!");
         System.out.println("request: " + request.getRequestURI());
 
-        System.out.println("token: " + jwtUtil.generateToken(new User("user0@mail.com", 1, 1, 1, 1)));
+        System.out.println("token: " + jwtUtil.generateToken(new User("user0@mail.com", true, true, true, true)));
 
         String authHeader = request.getHeader("Authorization");
         String jwt = null;

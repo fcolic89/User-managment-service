@@ -40,10 +40,10 @@ public class PrivilegeFilter extends OncePerRequestFilter {
                 User user = u.get();
                 String uri = request.getRequestURI();
                 String method = request.getMethod();
-                if((method.equals("GET") && user.getCanRead() == 1)
-                    || (method.equals("POST") && user.getCanCreate() == 1)
-                    || (method.equals("PUT") && user.getCanUpdate() == 1)
-                    || (method.equals("DELETE") && user.getCanDelete() == 1))
+                if((method.equals("GET") && user.isCanRead())
+                    || (method.equals("POST") && user.isCanCreate())
+                    || (method.equals("PUT") && user.isCanUpdate())
+                    || (method.equals("DELETE") && user.isCanDelete()))
                     filterChain.doFilter(request,response);
                 else
                     response.setStatus(403);

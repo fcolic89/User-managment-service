@@ -21,15 +21,15 @@ public class User {
     private String name;
     @NonNull
     private String lastname;
-    private int canRead;
-    private int canCreate;
-    private int canUpdate;
-    private int canDelete;
+    private boolean canRead;
+    private boolean canCreate;
+    private boolean canUpdate;
+    private boolean canDelete;
 
     public User() {
     }
 
-    public User(@NonNull String email, int canRead, int canCreate, int canUpdate, int canDelete) {
+    public User(@NonNull String email, boolean canRead, boolean canCreate, boolean canUpdate, boolean canDelete) {
         this.email = email;
         this.canRead = canRead;
         this.canCreate = canCreate;

@@ -55,7 +55,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         httpSecurity.addFilterBefore(this.jwtFilter, UsernamePasswordAuthenticationFilter.class);
-//        httpSecurity.addFilterAfter(this.privilegeFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterAfter(this.privilegeFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

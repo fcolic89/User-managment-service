@@ -36,7 +36,7 @@ public class UserService implements IService{
         Optional<User> u1 = userRepository.findById(user.getId());
         if((u.isPresent() && u1.isPresent() && u.get().getId().equals(u1.get().getId()))
             || (!u.isPresent() && u1.isPresent())) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(u1.get().getPassword());
             return userRepository.save(user);
         }
         else return null;

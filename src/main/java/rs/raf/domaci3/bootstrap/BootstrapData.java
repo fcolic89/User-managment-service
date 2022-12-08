@@ -31,10 +31,10 @@ public class BootstrapData implements CommandLineRunner {
             user.setName("user"+i);
             user.setPassword(passwordEncoder.encode("user"+i));
             user.setLastname("user"+i+"ic");
-            user.setCanRead(rand.nextInt(100)%2);
-            user.setCanCreate(rand.nextInt(200)%2);
-            user.setCanDelete(rand.nextInt(600)%2);
-            user.setCanUpdate(rand.nextInt(300)%2);
+            user.setCanRead(rand.nextInt(100)%2 == 0);
+            user.setCanCreate(rand.nextInt(200)%2 == 0);
+            user.setCanDelete(rand.nextInt(600)%2 == 0);
+            user.setCanUpdate(rand.nextInt(300)%2 == 0);
 
             userRepository.save(user);
         }

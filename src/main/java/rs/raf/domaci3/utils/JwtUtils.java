@@ -34,10 +34,10 @@ public class JwtUtils {
 
     public String generateToken(User user){
         Map<String, Object> claims = new HashMap<>();
-        claims.put("can_read", user.getCanRead());
-        claims.put("can_create", user.getCanCreate());
-        claims.put("can_update", user.getCanUpdate());
-        claims.put("can_delete", user.getCanDelete());
+        claims.put("can_read", user.isCanRead());
+        claims.put("can_create", user.isCanCreate());
+        claims.put("can_update", user.isCanUpdate());
+        claims.put("can_delete", user.isCanDelete());
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.getEmail())

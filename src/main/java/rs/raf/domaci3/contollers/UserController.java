@@ -51,6 +51,7 @@ public class UserController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> updateUser(@RequestBody User user){
+        System.out.println("dosao req u update!");
         User user1 = userService.update(user);
         if(user1 == null)
             return ResponseEntity.status(400).build();
