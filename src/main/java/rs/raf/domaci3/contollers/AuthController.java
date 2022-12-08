@@ -13,7 +13,7 @@ import rs.raf.domaci3.service.AnotherUserDetailService;
 import rs.raf.domaci3.service.UserService;
 import rs.raf.domaci3.utils.JwtUtils;
 
-@CrossOrigin
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
