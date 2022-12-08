@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import rs.raf.domaci3.model.User;
 import rs.raf.domaci3.service.AnotherUserDetailService;
 import rs.raf.domaci3.utils.JwtUtils;
 
@@ -29,6 +30,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        System.out.println("jwt filter!!!");
+        System.out.println("request: " + request.getRequestURI());
+
+        System.out.println("token: " + jwtUtil.generateToken(new User("user0@mail.com", 1, 1, 1, 1)));
+
         String authHeader = request.getHeader("Authorization");
         String jwt = null;
         String email = null;

@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Component
 public class JwtUtils {
-    private final String SECRET_KEY = "secret";
+    private final String SECRET_KEY = "secret_key";
 
     public Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
@@ -41,12 +41,12 @@ public class JwtUtils {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.getEmail())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+//                .setIssuedAt(new Date(System.currentTimeMillis()))
+//                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY).compact();
     }
 
     public boolean validateToken(String token, UserDetails user) {
-        return (user.getUsername().equals(extractUsername(token)) && !isTokenExpired(token));
+        return (user.getUsername().equals(extractUsername(token)));
     }
 }
