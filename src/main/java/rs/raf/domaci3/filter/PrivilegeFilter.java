@@ -26,6 +26,9 @@ public class PrivilegeFilter extends OncePerRequestFilter {
     }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        System.out.println("token: " + jwtUtil.generateToken(userRepository.findById(1L).get()));
+
         String authHeader = request.getHeader("Authorization");
         String jwt = null;
         String email = null;
