@@ -3,11 +3,11 @@ package rs.raf.domaci3.response;
 import lombok.Data;
 
 @Data
-public class LoginResponse {
+public class JwtResponse {
 
     private String jwt;
 
-    public LoginResponse(String jwt) {
+    public JwtResponse(String jwt) {
         this.jwt = jwt;
     }
 }

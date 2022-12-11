@@ -1,11 +1,11 @@
 package rs.raf.domaci3.contollers;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.raf.domaci3.model.User;
+import rs.raf.domaci3.response.JwtResponse;
 import rs.raf.domaci3.service.UserService;
 
 import java.util.List;
@@ -56,6 +56,15 @@ public class UserController {
             return ResponseEntity.status(400).build();
         else
             return ResponseEntity.ok(user1);
+    }
+
+    @PutMapping(value = "self",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<JwtResponse> updateUser2(@RequestBody User user){
+        JwtResponse lgr = userService.update2(user);
+        if(lgr == null)
+            return ResponseEntity.status(400).build();
+        else
+            return ResponseEntity.ok(lgr);
     }
 
 }

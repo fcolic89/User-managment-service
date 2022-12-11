@@ -5,11 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-import rs.raf.domaci3.model.User;
-import rs.raf.domaci3.repository.UserRepository;
 import rs.raf.domaci3.request.LoginRequest;
-import rs.raf.domaci3.response.LoginResponse;
-import rs.raf.domaci3.service.AnotherUserDetailService;
+import rs.raf.domaci3.response.JwtResponse;
 import rs.raf.domaci3.service.UserService;
 import rs.raf.domaci3.utils.JwtUtils;
 
@@ -40,7 +37,7 @@ public class AuthController {
         }
         System.out.println("email iz kontolera: " + loginRequest.getEmail());
 //        System.out.println(userService.findByEmail(loginRequest.getEmail()).toString());
-        return ResponseEntity.ok(new LoginResponse(
+        return ResponseEntity.ok(new JwtResponse(
                 jwtUtil.generateToken(userService.findByEmail(loginRequest.getEmail()))
                 ));
     }
