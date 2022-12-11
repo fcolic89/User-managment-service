@@ -34,19 +34,7 @@ public class UserService implements IService{
     }
 
     @Override
-    public User update(User user) {
-        Optional<User> u = userRepository.findByEmail(user.getEmail());
-        Optional<User> u1 = userRepository.findById(user.getId());
-        if((u.isPresent() && u1.isPresent() && u.get().getId().equals(u1.get().getId()))
-            || (!u.isPresent() && u1.isPresent())) {
-            user.setPassword(u1.get().getPassword());
-            return userRepository.save(user);
-        }
-        else return null;
-    }
-
-    @Override
-    public JwtResponse update2(User user) {
+    public JwtResponse update(User user) {
         Optional<User> u = userRepository.findByEmail(user.getEmail());
         Optional<User> u1 = userRepository.findById(user.getId());
         if((u.isPresent() && u1.isPresent() && u.get().getId().longValue() == u1.get().getId().longValue())

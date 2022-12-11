@@ -8,14 +8,9 @@ import java.util.List;
 public interface IService {
     List<User> findAll();
     void deleteById(Long id);
-    User update(User user);
-
-    JwtResponse update2(User user);
-
+    JwtResponse update(User user);
     User save(User user);
-
     User findById(Long id);
-
     User findByEmail(String email);
 
 

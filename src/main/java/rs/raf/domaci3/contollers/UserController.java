@@ -50,17 +50,8 @@ public class UserController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> updateUser(@RequestBody User user){
-        User user1 = userService.update(user);
-        if(user1 == null)
-            return ResponseEntity.status(400).build();
-        else
-            return ResponseEntity.ok(user1);
-    }
-
-    @PutMapping(value = "self",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JwtResponse> updateUser2(@RequestBody User user){
-        JwtResponse lgr = userService.update2(user);
+    public ResponseEntity<JwtResponse> updateUser(@RequestBody User user){
+        JwtResponse lgr = userService.update(user);
         if(lgr == null)
             return ResponseEntity.status(400).build();
         else
