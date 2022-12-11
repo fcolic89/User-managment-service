@@ -14,12 +14,13 @@ import java.util.Optional;
 @Service
 public class UserService implements IService{
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -52,7 +53,7 @@ public class UserService implements IService{
                 || (!u.isPresent() && u1.isPresent())) {
             user.setPassword(u1.get().getPassword());
              userRepository.save(user);
-             return new JwtResponse(new JwtUtils().generateToken(user));
+             return new JwtResponse(this.jwtUtils.generateToken(user));
         }
         else return null;
     }
